@@ -18,7 +18,7 @@ public class TemperatureService {
     private final Map<CaseInsensitiveString, TemperatureGenerationData> temperatureDatasByCountry;
     private final Random random = new Random();
 
-    TemperatureService() {
+    public TemperatureService() {
         Stream<String> lines = new ClassPathFileLoader().readLines("countriesTempData.csv");
 
         temperatureDatasByCountry = lines
