@@ -19,10 +19,7 @@ public class PredictionControllerTest {
         mockMvc
             .perform(MockMvcRequestBuilders.get("/api/temperature?country=Belgique"))
             .andExpect(MockMvcResultMatchers.status().isExpectationFailed())
-            .andExpect(MockMvcResultMatchers.content().string("{\n" +
-                "  \"country\" : \"\",\n" +
-                "  \"temperatures\" : [ ]\n" +
-                "}"));
+            .andExpect(MockMvcResultMatchers.content().string("{\"country\":\"\",\"temperatures\":[]}"));
     }
 
 

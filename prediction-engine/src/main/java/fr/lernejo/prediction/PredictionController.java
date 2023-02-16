@@ -19,19 +19,21 @@ public class PredictionController {
 
     private final ObjectMapper mapper = new ObjectMapper();
     @GetMapping("/api/temperature")
-    public ResponseEntity<String> getRecordsCountry(@RequestParam(name = "country") String country) throws JsonProcessingException {
+    public ResponseEntity<CountryTemperature> getRecordsCountry(@RequestParam(name = "country") String country) throws JsonProcessingException {
     try {
 
         double firstTemperature = this.temperatureService.getTemperature(country);
         double secondTemperature = this.temperatureService.getTemperature(country);
         List<String> dates = new DateGeneration().getGeneratedDate();
-        List<Temparatures> temparatures = new ArrayList<>();
-        temparatures.add(new Temparatures(dates.get(1), firstTemperature));
-        temparatures.add(new Temparatures(dates.get(0), secondTemperature));
+        List<Temperatures> temperatures = new ArrayList<>();
+        temperatures.add(new Temperatures(dates.get(1), firstTemperature));
+        temperatures.add(new Temperatures(dates.get(0), secondTemperature));
 
-        return ResponseEntity.ok(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new CountryTemperature(country, temparatures)));
+        //return ResponseEntity.ok(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new CountryTemperature(country, temperatures)));
+        return ResponseEntity.ok(new CountryTemperature(country, temperatures));
     }catch (UnknownCountryException exception){
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new CountryTemperature("",new ArrayList<Temparatures>())));
+        //return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new CountryTemperature("",new ArrayList<Temparatures>())));
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new CountryTemperature("",new ArrayList<Temperatures>()));
     }
     }
 }
