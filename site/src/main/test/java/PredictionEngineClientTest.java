@@ -25,5 +25,7 @@ class PredictionEngineClientTest {
         assertTrue(response.isSuccessful());
         assertNotNull(response.body());
         assertEquals(COUNTRY, response.body().country());
+
+        System.out.println(response.body());
     }
 }
